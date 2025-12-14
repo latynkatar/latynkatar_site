@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from flask import Flask, render_template, request
 import json
 import latynkatar
+import base64
 
 from lib.links import RAZDZIEŁY
 
@@ -42,11 +43,30 @@ app = Flask(__name__)
 def index():
     page_suffix = ""
     page_name = "Латынкатар"
+
+    converter = (
+        latynkatar.convert
+        if request.args.get("type") == "modern"
+        else latynkatar.convert_old
+    )
+    text_to_convert = (
+        base64.b64decode(request.args.get("text")).decode("utf-8")
+        if request.args.get("text")
+        else None
+    )
+    palatalization = True if request.args.get("palatalization") == "true" else False
+    converted_text = (
+        converter(text_to_convert, miakkasc=palatalization) if text_to_convert else None
+    )
     return render_template(
         "index.j2",
         page_name=page_name,
         page_suffix=page_suffix,
         debug=app.config["DEBUG"],
+        text_to_convert=text_to_convert,
+        converted_text=converted_text,
+        type=request.args.get("type"),
+        palatalization=request.args.get("palatalization"),
     )
 
 
