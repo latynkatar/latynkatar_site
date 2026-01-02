@@ -68,9 +68,9 @@ function getConverted() {
     })
       .then((response) => response.json())
       .then((response) => (outputField.value = response["text"]));
-    encodedText = btoa(
+    encodedText = encodeURIComponent(btoa(
       String.fromCharCode.apply(null, encoder.encode(inputField.value)),
-    );
+    ));
     pageUrl =
       window.location.origin +
       "?type=" +

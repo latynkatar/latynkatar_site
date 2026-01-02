@@ -33,6 +33,7 @@ from flask import Flask, render_template, request
 import json
 import latynkatar
 import base64
+import urllib
 
 from lib.links import RAZDZIEŁY
 
@@ -49,8 +50,9 @@ def index():
         if request.args.get("type") == "modern"
         else latynkatar.convert_old
     )
+    print(base64.b64decode(urllib.parse.unwrap(request.args.get("text"))).decode("utf-8"))
     text_to_convert = (
-        base64.b64decode(request.args.get("text")).decode("utf-8")
+        base64.b64decode(urllib.parse.unwrap(request.args.get("text"))).decode("utf-8")
         if request.args.get("text")
         else None
     )
