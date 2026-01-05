@@ -68,9 +68,9 @@ function getConverted() {
     })
       .then((response) => response.json())
       .then((response) => (outputField.value = response["text"]));
-    encodedText = encodeURIComponent(btoa(
-      String.fromCharCode.apply(null, encoder.encode(inputField.value)),
-    ));
+    encodedText = encodeURIComponent(
+      btoa(String.fromCharCode.apply(null, encoder.encode(inputField.value))),
+    );
     pageUrl =
       window.location.origin +
       "?type=" +
@@ -85,9 +85,20 @@ function getConverted() {
   }
 }
 
+function toggleInputLabel() {
+  let inputField = document.getElementById("input");
+  let inputLabel = document.getElementById("input-label");
+  if (inputField.value == null || inputField.value == "") {
+    inputLabel.hidden = null;
+  } else {
+    inputLabel.hidden = true;
+  }
+}
+
 function resetInput() {
   let inputField = document.getElementById("input");
   inputField.value = "";
+  toggleInputLabel();
 }
 
 function keyEvent(event) {
