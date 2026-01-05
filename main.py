@@ -50,7 +50,6 @@ def index():
         if request.args.get("type") == "modern"
         else latynkatar.convert_old
     )
-    print(base64.b64decode(urllib.parse.unwrap(request.args.get("text"))).decode("utf-8"))
     text_to_convert = (
         base64.b64decode(urllib.parse.unwrap(request.args.get("text"))).decode("utf-8")
         if request.args.get("text")
