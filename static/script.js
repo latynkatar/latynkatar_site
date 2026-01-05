@@ -33,12 +33,13 @@ function getConverted() {
   let outputField = document.getElementById("output");
   let typeSelector = document.querySelector("input[name=type-radio]:checked");
   let palatalizationSelector = document.getElementById("palatalization");
+  const encoder = new TextEncoder();
 
   if (inputField.value.length > 0) {
     let type = "";
     if (typeSelector.id == "type-modern") {
       type = "modern";
-      localStorage.setItem("type", "moderm");
+      localStorage.setItem("type", "modern");
     } else {
       type = "old";
       localStorage.setItem("type", "old");
@@ -67,6 +68,18 @@ function getConverted() {
     })
       .then((response) => response.json())
       .then((response) => (outputField.value = response["text"]));
+    encodedText = encodeURIComponent(
+      btoa(String.fromCharCode.apply(null, encoder.encode(inputField.value))),
+    );
+    pageUrl =
+      window.location.origin +
+      "?type=" +
+      localStorage.getItem("type") +
+      "&palatalization=" +
+      localStorage.getItem("palatalization") +
+      "&text=" +
+      encodedText;
+    history.pushState("Łatynkatar - канвертаваны тэкст", "", pageUrl);
   } else {
     console.log("The input field was empty. Skipping backend request");
   }
