@@ -85,20 +85,9 @@ function getConverted() {
   }
 }
 
-function toggleInputLabel() {
-  let inputField = document.getElementById("input");
-  let inputLabel = document.getElementById("input-label");
-  if (inputField.value == null || inputField.value == "") {
-    inputLabel.hidden = null;
-  } else {
-    inputLabel.hidden = true;
-  }
-}
-
 function resetInput() {
   let inputField = document.getElementById("input");
   inputField.value = "";
-  toggleInputLabel();
 }
 
 function keyEvent(event) {
