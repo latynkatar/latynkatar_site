@@ -45,20 +45,27 @@ def index():
     page_suffix = ""
     page_name = "Латынкатар"
 
-    converter = (
-        latynkatar.convert
-        if request.args.get("type") == "modern"
-        else latynkatar.convert_old
-    )
+    if request.args.get("direction") and request.args.get("direction") == "cyrillic":
+        converter = latynkatar.convert_latin
+    else:
+        converter = (
+            
+            latynkatar.convert
+            if request.args.get("type") == "modern"
+            else latynkatar.convert_old
+        )
     text_to_convert = (
         base64.b64decode(urllib.parse.unwrap(request.args.get("text"))).decode("utf-8")
         if request.args.get("text")
         else None
     )
     palatalization = True if request.args.get("palatalization") == "true" else False
-    converted_text = (
-        converter(text_to_convert, miakkasc=palatalization) if text_to_convert else None
-    )
+    if converter == latynkatar.convert_latin:
+        converted_text = converter(text_to_convert) if text_to_convert else None
+    else:
+        converted_text = (
+            converter(text_to_convert, miakkasc=palatalization) if text_to_convert else None
+        )
     return render_template(
         "index.j2",
         page_name=page_name,
