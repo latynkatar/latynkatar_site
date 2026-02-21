@@ -7,7 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "flask>=3.1.0",
     "gunicorn>=23.0.0",
-    "latynkatar>=2.0.0",
+    "latynkatar>=2.1.0",
 ]
 
 [dependency-groups]
