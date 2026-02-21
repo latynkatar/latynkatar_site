@@ -105,7 +105,8 @@ function getConverted() {
       window.location.origin +
       "?type=" +
       localStorage.getItem("type") +
-      "&direction=" + directionVerbal +
+      "&direction=" +
+      directionVerbal +
       "&palatalization=" +
       localStorage.getItem("palatalization") +
       "&text=" +

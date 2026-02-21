@@ -49,7 +49,6 @@ def index():
         converter = latynkatar.convert_latin
     else:
         converter = (
-            
             latynkatar.convert
             if request.args.get("type") == "modern"
             else latynkatar.convert_old
@@ -64,7 +63,9 @@ def index():
         converted_text = converter(text_to_convert) if text_to_convert else None
     else:
         converted_text = (
-            converter(text_to_convert, miakkasc=palatalization) if text_to_convert else None
+            converter(text_to_convert, miakkasc=palatalization)
+            if text_to_convert
+            else None
         )
     return render_template(
         "index.j2",
