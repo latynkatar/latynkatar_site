@@ -51,7 +51,6 @@ function saveOptionsToLocalStorage() {
   }
 }
 
-
 function getConverted() {
   let inputField = document.getElementById("input");
   let outputField = document.getElementById("output");
@@ -78,11 +77,10 @@ function getConverted() {
       palatalization = false;
     }
 
-
     if (directionSwitch.checked == true) {
-      directionVerbal = "cyrillic"
+      directionVerbal = "cyrillic";
     } else {
-      directionVerbal = "latin"
+      directionVerbal = "latin";
     }
 
     fetch("/convert", {
@@ -252,10 +250,10 @@ function restoreControlsState() {
     palatalizationSelector.checked = false;
   }
 
-  if (localStorage.getItem("direction") == "true"){
+  if (localStorage.getItem("direction") == "true") {
     directionSwitch.checked = true;
   } else {
     directionSwitch.checked = false;
   }
-  switchConvertationDirection()
+  switchConvertationDirection();
 }

@@ -1,6 +1,5 @@
 import nox
 
-
 nox.options.sessions = ["pretty", "black"]
 
 
