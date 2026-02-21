@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) 2024, Andrej Zacharevicz
+Copyright (c) 2026, Andrej Zacharevicz
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -28,29 +28,61 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+function saveOptionsToLocalStorage() {
+  let directionSwitch = document.getElementById("lat-to-cyr");
+  let typeSelector = document.querySelector("input[name=type-radio]:checked");
+  let palatalizationSelector = document.getElementById("palatalization");
+  try {
+    if (typeSelector.id == "type-modern") {
+      localStorage.setItem("type", "modern");
+    } else {
+      localStorage.setItem("type", "old");
+    }
+
+    if (palatalizationSelector.checked == true) {
+      localStorage.setItem("palatalization", "true");
+    } else {
+      localStorage.setItem("palatalization", "false");
+    }
+
+    localStorage.setItem("direction", directionSwitch.checked);
+  } catch (error) {
+    console.log("Can't save options to a local storage: ${error}");
+  }
+}
+
+
 function getConverted() {
   let inputField = document.getElementById("input");
   let outputField = document.getElementById("output");
   let typeSelector = document.querySelector("input[name=type-radio]:checked");
   let palatalizationSelector = document.getElementById("palatalization");
+  let directionSwitch = document.getElementById("lat-to-cyr");
   const encoder = new TextEncoder();
 
   if (inputField.value.length > 0) {
     let type = "";
+    let palatalization = true;
+    let directionVerbal = "";
+
+    saveOptionsToLocalStorage();
     if (typeSelector.id == "type-modern") {
       type = "modern";
-      localStorage.setItem("type", "modern");
     } else {
       type = "old";
-      localStorage.setItem("type", "old");
     }
 
     if (palatalizationSelector.checked == true) {
       palatalization = true;
-      localStorage.setItem("palatalization", "true");
     } else {
       palatalization = false;
-      localStorage.setItem("palatalization", "false");
+    }
+
+
+    if (directionSwitch.checked == true) {
+      directionVerbal = "cyrillic"
+    } else {
+      directionVerbal = "latin"
     }
 
     fetch("/convert", {
@@ -61,7 +93,7 @@ function getConverted() {
       },
       body: JSON.stringify({
         text: inputField.value,
-        direction: "latin",
+        direction: directionVerbal,
         type: type,
         palatalization: palatalization,
       }),
@@ -82,6 +114,36 @@ function getConverted() {
     history.pushState("Łatynkatar - канвертаваны тэкст", "", pageUrl);
   } else {
     console.log("The input field was empty. Skipping backend request");
+  }
+}
+
+function switchConvertationOptions(direction) {
+  let modernButton = document.getElementById("type-modern");
+  let oldButton = document.getElementById("type-old");
+  let palatalizationSelector = document.getElementById("palatalization");
+  const elements = [modernButton, oldButton, palatalizationSelector];
+
+  for (const element of elements) {
+    element.disabled = direction;
+  }
+}
+
+function switchConvertationDirection() {
+  let directionSwitch = document.getElementById("lat-to-cyr");
+  let directionLabel = document.getElementById("direction-label");
+  let inputFieldMarker = document.getElementById("input-label");
+  let outputFieldMarker = document.getElementById("output-label");
+
+  switchConvertationOptions(directionSwitch.checked);
+
+  if (directionSwitch.checked == true) {
+    directionLabel.textContent = "Лацінка ў кірыліцу";
+    inputFieldMarker.textContent = "Устаўце сюды тэкст лацінкаю";
+    outputFieldMarker.textContent = "Тут з'явіцца вынік кірыліцаю";
+  } else {
+    directionLabel.textContent = "Кірыліца ў лацінку";
+    inputFieldMarker.textContent = "Устаўце сюды тэкст кірыліцаю";
+    outputFieldMarker.textContent = "Тут з'явіцца вынік лацінкаю";
   }
 }
 
@@ -176,6 +238,7 @@ function restoreControlsState() {
   let modernButton = document.getElementById("type-modern");
   let oldButton = document.getElementById("type-old");
   let palatalizationSelector = document.getElementById("palatalization");
+  let directionSwitch = document.getElementById("lat-to-cyr");
 
   if (localStorage.getItem("type") == "old") {
     oldButton.checked = true;
@@ -188,4 +251,11 @@ function restoreControlsState() {
   } else {
     palatalizationSelector.checked = false;
   }
+
+  if (localStorage.getItem("direction") == "true"){
+    directionSwitch.checked = true;
+  } else {
+    directionSwitch.checked = false;
+  }
+  switchConvertationDirection()
 }

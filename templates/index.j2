@@ -13,6 +13,14 @@
         <!-- Закладкі для розных маніпуляцый з тэкстам -->
         {% include 'common/tabs.j2' %}
         <!-- Закладкі для розных маніпуляцый з тэкстам -->
+        <!-- Пераключальнік накірунка канвертацыі -->
+        <div class="row mt-4 mx-auto">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="lat-to-cyr" onClick="switchConvertationDirection()">
+                <label class="form-check-label" for="lat-to-cyr" id="direction-label">Кірыліца ў лацінку</label>
+            </div>
+        </div>
+        <!-- Пераключальнік накірунка канвертацыі -->
         <!-- Зыходны тэкст і кнопка яго ачысткі -->
         <div class="row row-cols-2 p-3">
             <div class="input-group">
@@ -46,11 +54,6 @@
             </div>
         </div>
         <!-- Пазначэнне транзітыўнай мякасці -->
-	{% if not palatalization %}
-        <!-- Аднавіць папярэдні стан настроек -->
-            <script>restoreControlsState();</script>
-        <!-- Аднавіць папярэдні стан настроек -->
-	{% endif %}
         <!-- Кнопка канвертацыі -->
         <div class="row row-cols-2 p-3">
             <div class="col-11">
@@ -64,7 +67,7 @@
                 <div class="col-11">
                     <div class="form-floating">
                         <textarea id="output" placeholder="Тут з'явіцца вынік лацінкаю" readonly title="Сканвертаваны тэкст" class="form-control" style="height: 200px">{{ converted_text if converted_text else "" }}</textarea>
-                        <label for="output">Тут з'явіцца вынік лацінкаю</label>
+                        <label for="output" id="output-label">Тут з'явіцца вынік лацінкаю</label>
                     </div>
                 </div>
                 <div class="col-1" >
@@ -74,4 +77,7 @@
         </div>
         <!-- Выніковы тэкст -->
     </div>
+    <!-- Аднавіць папярэдні стан настроек -->
+        <script>restoreControlsState();</script>
+    <!-- Аднавіць папярэдні стан настроек -->
 {% include 'common/tail.j2' %}

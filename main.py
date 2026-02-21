@@ -114,6 +114,7 @@ def convert():
     data = request.json
     errors = []
     expected_fields = ("text", "direction", "type", "palatalization")
+    print(data)
 
     missed_keys = [x for x in expected_fields if x not in data.keys()]
     if missed_keys:
@@ -128,7 +129,7 @@ def convert():
             f"'text' field should be a String, but was a '{(data['text'].__class__.__name__)}'"
         )
 
-    if "direction" in data.keys() and not data["direction"] in ("latin"):
+    if "direction" in data.keys() and not data["direction"] in ("latin", "cyrillic"):
         errors.append(f"'direction' should be 'latin' but was '{data['direction']}'")
 
     if "type" in data.keys() and not data["type"] in ("old", "modern"):
@@ -142,14 +143,17 @@ def convert():
             "errors": errors,
         }
     else:
-        if data["type"] == "modern":
-            converted = latynkatar.convert(
-                data["text"], miakkasc=data["palatalization"]
-            )
+        if "direction" in data.keys() and data["direction"] == "cyrillic":
+            converted = latynkatar.convert_latin(data["text"])
         else:
-            converted = latynkatar.convert_old(
-                data["text"], miakkasc=data["palatalization"]
-            )
+            if data["type"] == "modern":
+                converted = latynkatar.convert(
+                    data["text"], miakkasc=data["palatalization"]
+                )
+            else:
+                converted = latynkatar.convert_old(
+                    data["text"], miakkasc=data["palatalization"]
+                )
         response = {
             "status": "success",
             "text": converted,
