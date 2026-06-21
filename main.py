@@ -35,8 +35,6 @@ import latynkatar
 import base64
 import urllib
 
-from lib.links import RAZDZIEŁY
-
 app = Flask(__name__)
 
 
@@ -79,19 +77,6 @@ def index():
     )
 
 
-@app.route("/links/")
-def links():
-    page_name = "Спасылкі"
-    page_suffix = f" - {page_name}"
-    return render_template(
-        "links.j2",
-        page_name=page_name,
-        page_suffix=page_suffix,
-        spasylki=RAZDZIEŁY,
-        debug=app.config["DEBUG"],
-    )
-
-
 @app.route("/about/")
 def about():
     page_name = "Пра сайт"
@@ -104,12 +89,12 @@ def about():
     )
 
 
-@app.route("/litary/")
+@app.route("/pangrams/")
 def litary():
-    page_name = "Усе літары"
+    page_name = "Панграмы"
     page_suffix = f" - {page_name}"
     return render_template(
-        "litary.j2",
+        "pangrams.j2",
         page_name=page_name,
         page_suffix=page_suffix,
         debug=app.config["DEBUG"],
