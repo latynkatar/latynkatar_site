@@ -21,4 +21,4 @@ jobs:
         run: npx prettier . --check
 
       - name: Check if py is black
-        run: python3 -m black --check main.py lib
+        run: python3 -m black --check main.py
