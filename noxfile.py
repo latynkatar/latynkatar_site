@@ -16,19 +16,19 @@ def prettier(session):
 @nox.session
 def black(session):
     session.install("black")
-    session.run("black", "--check", "main.py", "noxfile.py", "lib")
+    session.run("black", "--check", "main.py", "noxfile.py")
 
 
 @nox.session
 def black_diff(session):
     session.install("black")
-    session.run("black", "--diff", "main.py", "noxfile.py", "lib")
+    session.run("black", "--diff", "main.py", "noxfile.py")
 
 
 @nox.session
 def blacked(session):
     session.install("black")
-    session.run("black", "main.py", "noxfile.py", "lib")
+    session.run("black", "main.py", "noxfile.py")
 
 
 @nox.session
