@@ -34,6 +34,7 @@ import json
 import latynkatar
 import base64
 import urllib
+import importlib.metadata as pkg_metadata
 
 app = Flask(__name__)
 
@@ -86,6 +87,7 @@ def about():
         page_name=page_name,
         page_suffix=page_suffix,
         debug=app.config["DEBUG"],
+        latynkatar_version=pkg_metadata.version("latynkatar"),
     )
 
 
