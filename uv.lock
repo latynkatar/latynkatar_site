@@ -202,14 +202,14 @@ wheels = [
 
 [[package]]
 name = "latynkatar"
-version = "2.2.0"
+version = "2.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "debtcollector" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/ba/facb423bec6609fc7a1a0c0562eb4e3bc7e57ed9ebb86a02d266421120a3/latynkatar-2.2.0.tar.gz", hash = "sha256:4ab4eddddcf0ce2e0ec938eea1abe4f71914483f05da416b851fa40e2efbcb74", size = 11207, upload-time = "2026-06-28T10:22:59.274Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ed/9b/8f2ac1c1d17334bf0c276d63fede9a1c0533dda66360c0425328bbe25294/latynkatar-2.2.2.tar.gz", hash = "sha256:6897bb34380d415b8619da6a30cf8ef014dcd871cae39ac5cb2c3e84b42dca87", size = 13466, upload-time = "2026-06-28T13:40:22.584Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/66/30/4aa7741176b62580de25f6e12c432f28a3e6db4a947199beedf14475723f/latynkatar-2.2.0-py3-none-any.whl", hash = "sha256:aee872a1e6c0928bccc233331b176b763e723bd551a0a633c0c1e1bd1a52ef91", size = 16619, upload-time = "2026-06-28T10:22:58.422Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/bf/5a5fa6d1f783fd05a9fa37826d2fed06183ceaf2cc2c10b656004b6c2ac3/latynkatar-2.2.2-py3-none-any.whl", hash = "sha256:5a598c2d18feabb9cdde70433c381db2db140dae6f072d9c404235d48a0cb70f", size = 18380, upload-time = "2026-06-28T13:40:21.456Z" },
 ]
 
 [[package]]
